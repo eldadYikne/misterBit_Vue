@@ -1,0 +1,19 @@
+.red-messege{
+color: red;
+width: 48px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+}
+.transfer-container{
+    display: flex;
+    flex-direction: column;
+    & .form{
+        display: flex;
+        flex-direction: column; 
+        & .left{
+            color: green;
+            font-weight: 600;
+        }
+    }
+}
