@@ -64,3 +64,78 @@
     }
 
 }
+
+.transition-container {
+    min-height: 140px;
+    max-height: 296px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 200%;
+    display: none;
+margin-top:20px;
+    @include for-medium-layout {
+        width: 128%;
+        display: block;
+    }
+
+    &::-webkit-scrollbar {
+        width: 10px;
+        height: 20px;
+        border-radius: 20px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background: rgb(255 255 255 / 12%);
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 20px;
+        background: rgb(255 255 255 / 12%);
+    }
+
+    & .transition {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.361);
+        width: 79%;
+        height: 35px;
+
+        & .at-to-container {
+            padding-left: 15px;
+            display: flex;
+            flex-direction: column;
+
+            & .to {
+                color: #1199fa;
+                font-weight: 600;
+                font-size: 18px;
+
+            }
+
+            & .at {
+                color: #dadade66;
+                font-size: 15px;
+
+
+            }
+        }
+
+        & .amount-container {
+            display: flex;
+            flex-direction: column;
+            padding-right: 35px;
+
+            & .amount {
+                font-size: 13px;
+                color: red;
+            }
+
+            & .coinLeft {
+                font-size: 15px;
+                color: rgb(0, 255, 47);
+            }
+        }
+    }
+}

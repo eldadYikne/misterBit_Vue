@@ -8,7 +8,8 @@ export const userService = {
     signupUser,
     loadUsers,
     logout,
-    transactions
+    transactions,
+    getDefaultUser
 }
 
 const gUsers = [
@@ -16,6 +17,8 @@ const gUsers = [
         name: "Puki Ben David",
         balance: 100,
         _id: utilService.makeId(),
+        email:"Puki@gamil.com",
+
         transactions: [
             {
                 toId: "d99e3u2ih329",
@@ -28,6 +31,7 @@ const gUsers = [
     {
         _id: utilService.makeId(),
         name: "Dekel Ben David",
+        email:"DekelBen@gamil.com",
         balance: 100,
         transactions: [
             {
@@ -40,8 +44,10 @@ const gUsers = [
     },
     {
         _id: utilService.makeId(),
-        name: "eldad",
+        name: "eldady",
         balance: 100,
+        email:"eldadd@gamil.com",
+
         transactions: [
             {
                 toId: "d99easd3u5ih329",
@@ -74,18 +80,43 @@ function transfer(payload) {
         console.log('you not has money');
     }
 
-    // payload.toContact
-    // payload.fromContact
-    // payload.sum
-
 }
-function transactions(payload) {
+function getDefaultUser() {
+    const defaultUser= {
+        _id: utilService.makeId(),
+        name: "eldad",
+        email:"eldad@gamil.com",
+        balance: 100,
+        transactions: [
+            {
+                toId: "d99easd3u5ih329",
+                to: "Moshiko",
+                at: 2652712571,
+                amount: 2
+            },
+        ]
+
+    }
+    const username= {email:defaultUser.email  ,username:defaultUser.name}
+    signupUser(username)
+    return defaultUser
+}
+function transactions(contact,sum) {
     return new Promise((resolve, reject) => {
-        const newContantToUpdet = { ...payload.fromContact }
+        const fromContantToUpdet = { ...contact }
         const date = _getDate()
-        const newTransactions = _newTransactions(newContantToUpdet._id, newContantToUpdet.name, date, payload.sum,newContantToUpdet.balance)
-        // newContantToUpdet.transactions.push(newTransactions)
-        resolve(newTransactions)
+        const fromContactTransactions = _newTransactions(fromContantToUpdet._id, fromContantToUpdet.name, date, sum, fromContantToUpdet.balance)
+       const currUser=storageService.load('loggedinUser')
+        if(contact._id !== currUser._id){
+            var contacts = storageService.load('contactDB')
+            const fromContactIdx = contacts.findIndex(contact => contact._id === fromContantToUpdet._id)       
+            if(!fromContantToUpdet.transactions) fromContantToUpdet.transactions=[]
+            fromContantToUpdet.transactions=[...fromContantToUpdet.transactions,fromContactTransactions]
+            contacts.splice(fromContactIdx, 1, fromContantToUpdet)
+            storageService.save('contactDB', contacts)
+        }
+
+        resolve(fromContactTransactions)
     })
 }
 
@@ -104,7 +135,7 @@ function _getDate() {
     const res = `${currDate},  ${time}  `
     return res
 }
-function _newTransactions(toId, to, date, amount,coinLeft) {
+function _newTransactions(toId, to, date, amount, coinLeft) {
     return {
         toId,
         to,

@@ -1,4 +1,5 @@
 import { contactService } from "../../service/contact.service"
+import { userService } from "../../service/user.service"
 
 export default {
     state: {
@@ -18,11 +19,20 @@ export default {
             const idx = state.contacts.findIndex(contact => contact._id === contactId)
             console.log(idx);
             state.contacts.splice(idx, 1, contact)
+        },
+        transactionsTo(state, { transactions }) {
+            const contactIdx = state.contacts.findIndex(contact => contact._id === transactions.toId)
+            const newContact = state.contacts.find(contact => contact._id === transactions.toId)
+            console.log('newContact',newContact)
+            
+            if (!newContact.transactions) newContact.transactions = []
+            newContact.transactions.push(transactions)
+            state.contacts.splice(contactIdx, 1, newContact)
         }
     },
     actions: {
         async loadContacts(context) {
-            const contacts = await contactService.getContacts()            
+            const contacts = await contactService.getContacts()
             context.commit({ type: 'setContacts', contacts })
         },
         async removeContact(context, { contactId }) {
@@ -33,7 +43,13 @@ export default {
             console.log('contact', contact)
             await contactService.saveContact(contact);
             context.commit({ type: 'saveContact', contact })
+        },
+        async transactionsTo({ commit }, { payload }) {
+            const transactions = await userService.transactions(payload.toContact, payload.sum)
+            commit({ type: 'transactionsTo', transactions })
+
         }
+
 
     },
     getters: {

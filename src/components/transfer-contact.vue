@@ -39,7 +39,6 @@ export default {
   },
   created(){
     this.setToContact();
-    console.log('user',this.user);
     
   },
   methods: {
@@ -63,13 +62,12 @@ export default {
         fromContact: this.user,
       };
       this.getContact();
-      console.log(this.user);
       this.$store.dispatch({ type: "transfer", payload });
       this.$store.dispatch({ type: "transactions", payload });
+      this.$store.dispatch({ type: "transactionsTo", payload });
 
       if (this.user.balance < this.sum) {
         this.ShowMessge = true;
-        console.log(this.ShowMessge);
         setTimeout(() => {
           this.ShowMessge = false;
         }, 2000);

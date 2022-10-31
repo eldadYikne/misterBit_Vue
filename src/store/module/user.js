@@ -23,8 +23,8 @@ export default {
             state.user.balance -= sum
         },
         transactions(state,{transactions}){
-            console.log(transactions);
-            console.log('state.user',state.user)
+            console.log('transactionsUser',transactions)
+            
             state.user.transactions.push(transactions)
         }
 
@@ -45,14 +45,13 @@ export default {
 
         },
         async transfer({ commit }, { payload }) {
-            console.log(payload);
             await userService.transfer(payload)
             commit({ type: 'transfer', sum: payload.sum })
 
         },
         async transactions({ commit }, { payload }) {
-           const transactions=  await userService.transactions(payload)
-           console.log(transactions,'transactions');
+            console.log(payload);
+            const transactions=  await userService.transactions(payload.toContact,payload.sum)
             commit({ type: 'transactions', transactions })
 
         }
