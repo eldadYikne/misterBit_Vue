@@ -1,5 +1,5 @@
  <template>
-  <div  v-if="contact">
+  <div  v-if="contact && user" >
     <div class="contact-details-container">
       <div class="image-continer">
         <img v-bind:src="getImgUrl" />
@@ -50,10 +50,13 @@ export default {
     this.setContact();
     this.$store.dispatch({ type: "loadContacts" });
   },
+
   methods: {
     async setContact() {
       const contactId = this.$route.params.contactId;
       this.user = this.$store.getters.user;
+      console.log('this.user',this.user)
+      
       try {
         this.contact = await contactService.getContactById(contactId);
       } catch (err) {

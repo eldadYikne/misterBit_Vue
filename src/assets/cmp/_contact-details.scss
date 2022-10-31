@@ -13,17 +13,18 @@
     display: flex;
     align-items: center;
     position: relative;
+    margin-left: 33px;
 
     @include for-medium-layout {
         gap: 86px;
-                flex-direction: row;
+        flex-direction: row;
+        margin-left: 0;
+
         height: 55vh;
         width: 100%;
     }
 
-    & .trasnfer-details {
-
-    }
+    & .trasnfer-details {}
 
     & .image-continer {
         img {
@@ -72,7 +73,8 @@
     overflow-x: hidden;
     width: 200%;
     display: none;
-margin-top:20px;
+    margin-top: 20px;
+margin-bottom: 30px;
     @include for-medium-layout {
         width: 128%;
         display: block;
