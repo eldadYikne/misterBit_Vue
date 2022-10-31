@@ -10,7 +10,7 @@
       <span v-if=" contact.balance "> {{ contact.balance }}$</span>
     </div>
     <RouterLink to="/contact">
-        <img class="go-back" v-bind:src="'../../public/img/back.svg'"/>
+        <img class="go-back" v-bind:src="'./img/back.svg'"/>
     </RouterLink>
     <div class="trasnfer-details">
 

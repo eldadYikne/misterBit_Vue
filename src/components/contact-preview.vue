@@ -13,7 +13,7 @@
     <div class="btn-container">
       <div class="bitcoin-container-preview" v-if="contact.balance" >
         <span>{{contact.balance}}$</span>
-        <img  v-bind:src="'public/img/Bitcoin.png'"/>
+        <img  v-bind:src="'./img/Bitcoin.png'"/>
       </div>
       <button v-on:click="onRemoveContant">Remove</button>
       <button>
