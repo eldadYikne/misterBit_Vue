@@ -1,6 +1,6 @@
  <template>
   <div v-if="user" class="home-page">
-    <span class="home-page-title">Hi {{ user.name }}, it's good to see you  </span>
+    <span class="home-page-title">Hi {{ user.name }}, it's good to see you</span>
     <h2>Manage, transfer and keep being updated </h2>
     <div class="user-modal">
       <div class="balance">

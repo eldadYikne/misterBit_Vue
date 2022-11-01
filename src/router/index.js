@@ -10,6 +10,7 @@ const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      
       path: '/',
       component: HomePage,
       meta: { transition: 'fade' },
